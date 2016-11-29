@@ -58,6 +58,14 @@ BEGIN {
 
 my $handlers;
 
+=func validate
+
+Validates the provided value or data structure and returns the results.
+
+    $result = validate($value, $constraints);
+
+=cut
+
 sub validate {
     my ($data, $constraints, $result) = @_;
 
