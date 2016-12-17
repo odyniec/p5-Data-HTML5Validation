@@ -46,11 +46,9 @@ BEGIN {
     $result = validate('I am not an email', { type => 'email' });
 
     # $result: {
-    #     email => {
-    #         valid         => 0,
-    #         sanitized     => 'I am not an email',
-    #         type_mismatch => 1
-    #     }
+    #     valid         => 0,
+    #     sanitized     => 'I am not an email',
+    #     type_mismatch => 1
     # }
 
 =cut
