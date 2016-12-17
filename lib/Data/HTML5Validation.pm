@@ -19,38 +19,37 @@ BEGIN {
     use Data::HTML5Validation qw(validate);
 
     my $constraints = {
-        email => {
-            type     => 'email',
-            required => 1,
-        }
+        email        => { type => 'email',    required => 1 },
+        name         => { type => 'text'                    },
+        accept_terms => { type => 'checkbox', required => 1 }
     };
 
-    $result = validate({ email => '   somebody@example.com' }, $constraints);
+    $result = validate({
+        email        => '   somebody@example.com',
+        name         => '',
+    }, $constraints);
 
-    # {
+    # $result: {
     #     email => {
     #         valid     => 1,
     #         sanitized => 'somebody@example.com'
+    #     },
+    #     name => {
+    #         valid => 1
+    #     },
+    #     accept_terms => {
+    #         valid         => 0,
+    #         value_missing => 1
     #     }
     # }
 
-    $result = validate({ email => 'I am not an email' }, $constraints);
+    $result = validate('I am not an email', { type => 'email' });
 
-    # {
+    # $result: {
     #     email => {
     #         valid         => 0,
     #         sanitized     => 'I am not an email',
     #         type_mismatch => 1
-    #     }
-    # }
-
-    $result = validate({ email => '   ' }, $constraints);
-
-    # {
-    #     email => {
-    #         valid         => 0,
-    #         sanitized     => '',
-    #         value_missing => 1
     #     }
     # }
 
