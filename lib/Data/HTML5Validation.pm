@@ -108,7 +108,7 @@ sub validate {
         # A hashref of data -- validate one by one
         $result = {};
 
-        for my $name (keys %$data) {
+        for my $name (keys %$constraints) {
             $result->{$name} = validate($data->{$name}, $constraints->{$name});
         }
 
