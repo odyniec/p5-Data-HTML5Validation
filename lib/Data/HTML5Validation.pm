@@ -153,6 +153,26 @@ $handlers = {
 
         return $result;
     },
+    'type:number' => sub {
+        my ($value, $constraints, $result) = @_;
+
+        my $number_re = qr{^
+            - ?                         # Optional minus sign
+            [0-9]*                      # A series of ASCII digits 
+            (?: \. [0-9]+ )?            # "." and a series of ASCII digits
+            (?: [eE] [-+]? [0-9]+ )?    # "e" or "E", optional +/-, ASCII digits
+        $}x;
+
+        # Validate
+        if ($value ne '' && $value !~ m/$number_re/) {
+            $result->{valid} = 0;
+            $result->{bad_input} = 1;
+        }
+
+        $result->{sanitized} = $value;
+
+        return $result;
+    },
     'required' => sub {
         my ($value, $constraints, $result) = @_;
 
